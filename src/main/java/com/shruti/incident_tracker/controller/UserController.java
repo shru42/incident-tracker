@@ -1,5 +1,6 @@
 package com.shruti.incident_tracker.controller;
 
+import com.shruti.incident_tracker.dto.LoginRequest;
 import com.shruti.incident_tracker.entity.User;
 import com.shruti.incident_tracker.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,16 @@ import java.util.Optional;
 public class UserController {
 
 
-    public final UserService userService;
+    private final UserService userService;
 
     @PostMapping("/register")
     public void registerUser( @RequestBody User user) {
         userService.registerUser(user);
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@RequestBody LoginRequest request) {
+       return userService.loginUser(request.getUsername(), request.getPassword());
     }
 
     @GetMapping("/{username}")
