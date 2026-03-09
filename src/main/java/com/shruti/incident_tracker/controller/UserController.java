@@ -1,6 +1,7 @@
 package com.shruti.incident_tracker.controller;
 
 import com.shruti.incident_tracker.dto.LoginRequest;
+import com.shruti.incident_tracker.dto.UserResponse;
 import com.shruti.incident_tracker.entity.User;
 import com.shruti.incident_tracker.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,12 @@ public class UserController {
     }
 
     @GetMapping("/{username}")
-    public Optional<User> findByUsername(@PathVariable String username) {
-        return userService.findByUsername(username);
+    public UserResponse findByUsername(@PathVariable String username) {
+        Optional<User> optionalUser= userService.findByUsername(username);
+        if(optionalUser.isEmpty()) {
+            throw new RuntimeException("User not found");
+        }
+        User user = optionalUser.get();
+        return new UserResponse(user.getId(), user.getUsername(), user.getEmail(), user.getRole(), user.getCreatedAt());
     }
 }
