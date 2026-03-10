@@ -18,6 +18,10 @@ public class IncidentService {
     private final UserRepository userRepository;
 
     public Incident save(Incident incident) {
+        Long userId= incident.getCreatedBy().getId();
+        if( userRepository.findById(userId).isEmpty() ) {
+            throw new RuntimeException("User with id " + userId + " not found");
+        }
         return incidentRepository.save(incident);
     }
 
