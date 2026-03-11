@@ -33,10 +33,10 @@ public class IncidentService {
        return incident.get();
     }
 
-    public List<Incident> findByCreatedBy(User createdby) {
-        if(userRepository.findByUsername(createdby.getUsername()).isEmpty())
-            throw new RuntimeException("User with name " + createdby.getUsername() + " not found");
-        return incidentRepository.findByCreatedBy(createdby);
+    public List<Incident> findIncidentsByUserId(Long userId) {
+        if(userRepository.findById(userId).isEmpty())
+            throw new RuntimeException("User with id " + userId + " not found");
+        return incidentRepository.findByCreatedById(userId);
     }
 
     public List<Incident> getAllIncidents() {

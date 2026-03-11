@@ -1,6 +1,7 @@
 package com.shruti.incident_tracker.controller;
 
 import com.shruti.incident_tracker.entity.Incident;
+import com.shruti.incident_tracker.entity.User;
 import com.shruti.incident_tracker.repository.IncidentRepository;
 import com.shruti.incident_tracker.service.IncidentService;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,11 @@ public class IncidentController {
         incidentService.deleteIncident(id);
     }
 
+    @GetMapping("user/{userId}")
+    public List<Incident> findAllIncidentsByUser(@PathVariable Long userId) {
+
+        return incidentService.findIncidentsByUserId(userId);
+    }
 
 
 }
